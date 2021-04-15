@@ -5,7 +5,7 @@ export const ListElem = ({ title, data, comment }) => {
 
     return(
         <View style = {styles.container}>
-        <TouchableOpacity style = {styles.elem} onPress={ () => {} }>
+        <TouchableOpacity style = {styles.elem}>
             <View style={styles.view}>
                 <Text style={styles.textTitle}> { title } </Text>
                 <Text style={styles.text}> {data} </Text>
@@ -43,8 +43,7 @@ const styles = StyleSheet.create({
     textTitle: {
         color: "black",
         alignItems: "center",
-        fontWeight: "bold",
-        fontSize: "50"
+        fontWeight: "bold"
     },
     text: {
         color: "black",

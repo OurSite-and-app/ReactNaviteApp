@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, Button, Image, ImagePickerIOS } from 'react-native'
+import { StyleSheet, Text, View, Button, Image } from 'react-native'
 
 import { LoginScreen } from './src/LoginScreen'
 import { ListScreen } from './src/ListScreen'
@@ -22,18 +22,3 @@ export default function App() {
   </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#0e1131',
-    //alignItems: 'center',
-    //justifyContent: 'center',
-  },
-  textStyle: {
-    backgroundColor: '#000',
-    color: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
