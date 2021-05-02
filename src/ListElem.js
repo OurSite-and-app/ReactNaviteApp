@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity } from 'react-native'
 
 export const ListElem = ({ title, data, comment }) => {
-
     return(
         <View style = {styles.container}>
         <TouchableOpacity style = {styles.elem}>

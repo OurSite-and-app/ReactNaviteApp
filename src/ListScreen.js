@@ -1,7 +1,7 @@
-import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView  } from 'react-native'
-import  {useState} from 'react'
-import { ListElem } from './ListElem'
+import React, { useState, useEffect, Component } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, ActivityIndicator, FlatList, Alert } from 'react-native'
+import { ListItem } from "react-native-elements";
+//import { ListElem } from './ListElem'
 
 export const ListScreen = ({ navigation }) => {
 
@@ -26,63 +26,48 @@ export const ListScreen = ({ navigation }) => {
     console.log("UPDATE!!!");
   }
 
-  const parties_list = [
-    {
-      title: 'party1',
-      comment: 'comment1'
-    },
-    {
-      title: 'party2',
-      comment: 'comment2'
-    },
-    {
-      title: 'party3',
-      comment: 'comment3'
-    },
-    {
-      title: 'party4',
-      comment: 'comment4'
-    },
-    {
-      title: 'party5',
-      comment: 'comment5'
-    },
-    {
-      title: 'party6',
-      comment: 'comment6'
-    },
-    {
-      title: 'party7',
-      comment: 'comment7'
-    }
-  ];
+  const url = "https://neon-fiber-309214.ew.r.appspot.com/"
+
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => setData(json.parties))
+      .catch((error) => alert(error))
+      .finally(setLoading(false));
+  });
 
   return(
-    <View style = {styles.container}>
-      <ScrollView>
-        <ListElem title = "Party1" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party2" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party3" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party4" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party5" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party6" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party7" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party8" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party9" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party10" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party11" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party12" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party13" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party14" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party15" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party16" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party17" data = "01.02.1990" comment = "some long long long comment" />
-        <ListElem title = "Party18" data = "01.02.1990" comment = "some long long long comment" />
-      </ScrollView>
-      <View style={styles.newElemButton}>
-        <Text>Boon</Text>
-      </View>
-    </View>
+        <SafeAreaView style = { styles.container }> 
+      {
+        isLoading ? 
+        
+        <ActivityIndicator/> 
+        : 
+        <FlatList
+          data = { data }
+          keyExtractor = { ({ id }, index) => id }
+          renderItem = { ({ item }) => (
+
+            <View style = {stylesList.container}>
+              <TouchableOpacity style = {stylesList.elem}>
+                <View style={stylesList.view}>
+                  <Text style={stylesList.textTitle}> { item.title } </Text>
+                  <Text style={stylesList.text}> {item.comments} </Text>
+                </View>
+                
+                <View>
+                  <Text style={stylesList.text}> {item.date_time} </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+          )}
+        />
+      }
+    </SafeAreaView>
   );
 }
 
@@ -101,3 +86,35 @@ const styles = StyleSheet.create({
     color: "white"
   }
 });
+
+const stylesList = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        marginHorizontal: 20,
+        paddingVertical: 10,
+    },
+    elem: {
+        width: "80%",
+        backgroundColor: "#465881",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 5,
+        marginBottom: 5
+    },
+    view: {
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+    },
+    textTitle: {
+        color: "black",
+        alignItems: "center",
+        fontWeight: "bold"
+    },
+    text: {
+        color: "black",
+        alignItems: "center",
+    }
+})
