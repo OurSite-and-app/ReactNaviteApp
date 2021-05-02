@@ -1,4 +1,9 @@
-# Sample Snack app
+# ReactNaviteApp
+
+To view the app, follow the link: https://snack.expo.io/@tcruz/reactnativeapp
+
+<img src="./img/1.png">
+<img src="./img/2.png">
 
 Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by scanning the **QR code** or use the iOS or Android emulators. When you're done, click **Save** and share the link!
 
