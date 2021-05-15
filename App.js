@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/LoginScreen'
 import ListScreen from './src/ListScreen'
 import ListElemEdit from './src/ListElemEdit'
+import AddPartyScreen from './src/AddPartyScreen'
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="ListScreen" component={ListScreen} />
         <Stack.Screen name="ListElemEdit" component={ListElemEdit} />
+        <Stack.Screen name="AddPartyScreen" component={AddPartyScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

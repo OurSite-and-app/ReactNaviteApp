@@ -19,6 +19,10 @@ import { ListItem } from 'react-native-elements';
 
 const ListScreen = ({ navigation }) => {
 
+  const addParty = () => {
+    navigation.navigate('AddPartyScreen')
+  }
+
   const url = 'https://neon-fiber-309214.ew.r.appspot.com/parties';
 
   const [isLoading, setLoading] = useState(true);
@@ -78,6 +82,7 @@ const ListScreen = ({ navigation }) => {
             backgroundColor:'#fff',
             borderRadius:100,
           }}
+          onPress = { addParty }
       >
         <Icon name="add"  size={30} color="#01a699" />
       </TouchableOpacity>
