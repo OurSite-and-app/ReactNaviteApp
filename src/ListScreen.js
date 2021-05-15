@@ -1,32 +1,11 @@
 import React, { useState, useEffect, Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, ActivityIndicator, FlatList, Alert } from 'react-native'
-import { ListItem } from "react-native-elements";
+import { ListItem } from "react-native-elements"
 //import { ListElem } from './ListElem'
 
-export const ListScreen = ({ navigation }) => {
+const ListScreen = ({ navigation }) => {
 
-  const [parties, setParty] = useState([])
-
-  const addParty = (title) => {
-    setParty(prev => [
-      ...prev, {
-        id: Date.now().toString(),
-        title
-      }
-    ])
-  }
-
-  const updateHandle = (value) => {
-    console.log("val is ", value);
-    setText(value)
-  }
-
-  const pressUpdate = () => {
-    setText(' ');
-    console.log("UPDATE!!!");
-  }
-
-  const url = "https://neon-fiber-309214.ew.r.appspot.com/"
+  const url = "https://neon-fiber-309214.ew.r.appspot.com/parties"
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -37,7 +16,7 @@ export const ListScreen = ({ navigation }) => {
       .then((json) => setData(json.parties))
       .catch((error) => alert(error))
       .finally(setLoading(false));
-  });
+  }, []);
 
   return(
         <SafeAreaView style = { styles.container }> 
@@ -75,15 +54,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0e1131',
-  },
-  newElemButton: {
-    margin: 5,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: 25,
-    height: 25,
-    color: "white"
   }
 });
 
@@ -118,3 +88,5 @@ const stylesList = StyleSheet.create({
         alignItems: "center",
     }
 })
+
+export default ListScreen

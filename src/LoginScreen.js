@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import  {useState} from 'react';
 
-export const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
 
   const [text, setText] = useState('')
   const loginHandle = (value) => {
@@ -16,7 +16,7 @@ export const LoginScreen = ({ navigation }) => {
   }
 
   const pressSingUp = () => {
-    navigation.navigate('ListElemEdit')
+    
   }
 
     return(
@@ -96,3 +96,5 @@ const styles = StyleSheet.create({
       color: "white"
     }
   });
+
+export default LoginScreen
