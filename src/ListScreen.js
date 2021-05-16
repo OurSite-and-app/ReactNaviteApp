@@ -20,12 +20,27 @@ const ListScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(url)
+    
+    const interval = setInterval(() => {
+      fetch(url)
       .then((response) => response.json())
       .then((json) => setData(json.parties))
       .catch((error) => alert(error))
       .finally(setLoading(false));
-  }, []);
+    }, 0)
+
+    // Subscribe for the focus Listener
+    const unsubscribe = navigation.addListener('focus', () => {
+      setData([])
+    })
+
+    return () => {
+      clearTimeout(interval)
+      unsubscribe
+      
+    }
+    
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
