@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import  {useState} from 'react';
 
-const LoginScreen = ({ navigation }) => {
+const RegistrationScreen = ({ navigation }) => {
 
   const [text, setText] = useState('')
   const loginHandle = (value) => {
@@ -10,13 +10,8 @@ const LoginScreen = ({ navigation }) => {
     setText(value)
   }
 
-  const pressLogin = () => {
-    setText("");
-    navigation.navigate('ListScreen')
-  }
-
   const pressSingUp = () => {
-    navigation.navigate('RegistrationScreen')
+    navigation.navigate('ListScreen')
   }
 
     return(
@@ -24,6 +19,15 @@ const LoginScreen = ({ navigation }) => {
         <Text style = {styles.logo}>Party List</Text>
         <View style = {styles.inputView} >
           <TextInput  
+            style = {styles.inputText}
+            placeholder = "Username..." 
+            placeholderTextColor = "#003f5c"
+            onChangeText = {loginHandle}
+            value = {text}
+            />
+        </View>
+        <View style = {styles.inputView} >
+        <TextInput  
             style = {styles.inputText}
             placeholder = "Email..." 
             placeholderTextColor = "#003f5c"
@@ -40,12 +44,9 @@ const LoginScreen = ({ navigation }) => {
             />
         </View>
         <TouchableOpacity>
-          <Text style={styles.forgot}>Forgot Password?</Text>
+          <Text style={styles.forgot}></Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.loginBtn} onPress = { pressLogin }>
-          <Text style={styles.loginText}>LOGIN</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress = { pressSingUp }>
+        <TouchableOpacity style = {styles.loginBtn} onPress = { pressSingUp }>
           <Text style={styles.loginText}>Signup</Text>
         </TouchableOpacity>
       </View>
@@ -97,4 +98,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default LoginScreen
+export default RegistrationScreen

@@ -1,15 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  ActivityIndicator,
-  FlatList,
-  Alert,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView,
+  SafeAreaView, ActivityIndicator, FlatList, Alert, } from 'react-native';
 
 import { Icon } from 'react-native-elements'
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,7 +14,7 @@ const ListScreen = ({ navigation }) => {
     navigation.navigate('AddPartyScreen')
   }
 
-  const url = 'https://neon-fiber-309214.ew.r.appspot.com/parties';
+  const url = 'http://84.252.142.119:5000/parties';
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -50,7 +41,9 @@ const ListScreen = ({ navigation }) => {
             <View style={stylesList.container}>
               <TouchableOpacity
                 style={stylesList.elem}
-                onPress={() => navigation.navigate("ListElemEdit",  {text: item.title})}
+                onPress={() => navigation.navigate("ElemEditScreen", 
+                          {title: item.title, theme: item.theme, rules: item.comments, date: item.date_time, dresscode: item.dress_code})
+                        }
               >
                 <View style={stylesList.view}>
                   <Text style={stylesList.textTitle}> {item.title} </Text>
@@ -79,12 +72,12 @@ const ListScreen = ({ navigation }) => {
             bottom: 10,                                                    
             right: 10,
             height:70,
-            backgroundColor:'#fff',
+            backgroundColor:'#fb5b5a',
             borderRadius:100,
           }}
           onPress = { addParty }
       >
-        <Icon name="add"  size={30} color="#01a699" />
+        <Icon name="add"  size={30} color="black" />
       </TouchableOpacity>
 
     </SafeAreaView>

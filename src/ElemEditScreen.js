@@ -1,10 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import  {useState} from 'react';
-import axios from 'axios'
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const AddPartyScreen = ({ navigation }) => {
+const ElemEditScreen = ({ route, navigation }) => {
 
+/*
   const [title, setTitle] = useState('')
   const [theme, setTheme] = useState('')
   const [dresscode, setDresscode] = useState('')
@@ -18,59 +19,33 @@ const AddPartyScreen = ({ navigation }) => {
 
   const pressSave = () => {
 
-    var data = {
-      title: title,
-      theme: theme,
-      dress_code: dresscode,
-      date_time: date,
-      comments: rules
-    }
-
-    console.log(data)
-
-    fetch("http://84.252.142.119:5000/add_party", {
-      method: "POST",
-        headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-  
-    navigation.navigate('ListScreen')
+  var data = {
+    "comments": {rules},
+    "date_time": {date},
+    "dress_code": {dresscode},
+    "theme": {theme},
+    "title": {title}
   }
 
-/*
-  const func12 = () => {
-    fetch("http:/example.com", {method: "POST",
-  body: JSON.stringify(
-    {
-      uname: uname,
-      password: password      
-    }
-  )
-})
-.then((response) => response.text())
-.then((responseData) => {
-  AlertIOS.alert(
-      "POST Response",
-      "Response Body -> " + responseData
-  )
-}).done();
-       this.props.navigation.navigate("Home")
-   };
+  fetch("https://neon-fiber-309214.ew.r.appspot.com/add_party", {
+    method: "POST",
+    body:  JSON.stringify(data)
+  })
+
+  navigation.navigate('ListScreen')
+  }
 */
 
   return(
       <View style = {styles.container}>
-      <Text style = {styles.logo}>Add Party</Text>
+      <Text style = {styles.logo}>Edit Party</Text>
       <View style = {styles.inputView} >
         <TextInput  
           style = {styles.inputText}
           placeholder = "Title..." 
           placeholderTextColor = "#003f5c"
-          onChangeText = {(title) => setTitle(title)}
-          //value = {title}
+          //onChangeText = {(title) => setTitle(title)}
+          value = {route.params.title}
           />
       </View>
       <View style = {styles.inputView} >
@@ -78,8 +53,8 @@ const AddPartyScreen = ({ navigation }) => {
           style = {styles.inputText}
           placeholder = "Theme..." 
           placeholderTextColor = "#003f5c"
-          onChangeText = {(theme) => setTheme(theme)}
-          //value = {theme}
+          //onChangeText = {(theme) => setTheme(theme)}
+          value = {route.params.theme}
           />
       </View>
       <View style = {styles.inputView} >
@@ -87,8 +62,8 @@ const AddPartyScreen = ({ navigation }) => {
           style = {styles.inputText}
           placeholder = "Date..." 
           placeholderTextColor = "#003f5c"
-          onChangeText = {(date) => setDate(date)}
-          //value = {date}
+          //onChangeText = {(date) => setDate(date)}
+          value = {route.params.date}
           />
       </View>
       <View style = {styles.inputView} >
@@ -96,8 +71,8 @@ const AddPartyScreen = ({ navigation }) => {
           style = {styles.inputText}
           placeholder = "DressCode..." 
           placeholderTextColor = "#003f5c"
-          onChangeText = {(dresscode) => setRules(dresscode)}
-          //value = {dresscode}
+          //onChangeText = {(dresscode) => setDate(dresscode)}
+          value = {route.params.dresscode}
           />
       </View>
       <View style = {styles.inputView} >
@@ -105,14 +80,14 @@ const AddPartyScreen = ({ navigation }) => {
           style = {styles.inputText}
           placeholder = "Rules..." 
           placeholderTextColor = "#003f5c"
-          onChangeText = {(rules) => setRules(rules)}
-          //value = {rules}
+          //onChangeText = {(rules) => setRules(rules)}
+          value = {route.params.rules}
           />
       </View>
       <TouchableOpacity>
         <Text style={styles.forgot}></Text>
       </TouchableOpacity>
-      <TouchableOpacity style = {styles.saveBtn} onPress = { pressSave }>
+      <TouchableOpacity style = {styles.saveBtn} /*onPress = { pressSave }*/>
         <Text style={styles.saveText}>SAVE</Text>
       </TouchableOpacity>
     </View>
@@ -164,4 +139,23 @@ const styles = StyleSheet.create({
     }
   });
 
-export default AddPartyScreen
+export default ElemEditScreen
+
+/*
+const ElemEditScreen = ({ route, navigation }) => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      
+     <Text>{route.params.text}</Text>
+
+      <Button
+        title="Go to Blog"
+        onPress={() => navigation.navigate('ListScreen')}
+      />
+    </View>
+  ); 
+}
+
+export default ElemEditScreen
+
+*/
