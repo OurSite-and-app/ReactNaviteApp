@@ -4,14 +4,29 @@ import  {useState} from 'react';
 
 const RegistrationScreen = ({ navigation }) => {
 
-  const [text, setText] = useState('')
-  const loginHandle = (value) => {
-    console.log("val is ", value);
-    setText(value)
-  }
-
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  
   const pressSingUp = () => {
-    navigation.navigate('ListScreen')
+
+    var data = {
+      name: username,
+      password: password,
+      email: email
+    }
+
+    console.log(data)
+
+    fetch("http://84.252.142.119:5000/user", {
+      method: "POST",
+        headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    navigation.navigate('LoginScreen')
   }
 
     return(
@@ -22,8 +37,7 @@ const RegistrationScreen = ({ navigation }) => {
             style = {styles.inputText}
             placeholder = "Username..." 
             placeholderTextColor = "#003f5c"
-            onChangeText = {loginHandle}
-            value = {text}
+            onChangeText = {(username) => setUsername(username)}
             />
         </View>
         <View style = {styles.inputView} >
@@ -31,8 +45,7 @@ const RegistrationScreen = ({ navigation }) => {
             style = {styles.inputText}
             placeholder = "Email..." 
             placeholderTextColor = "#003f5c"
-            onChangeText = {loginHandle}
-            value = {text}
+            onChangeText = {(email) => setEmail(email)}
             />
         </View>
         <View style = {styles.inputView} >
@@ -41,6 +54,7 @@ const RegistrationScreen = ({ navigation }) => {
             style = {styles.inputText}
             placeholder = "Password..." 
             placeholderTextColor = "#003f5c"
+            onChangeText = {(password) => setPassword(password)}
             />
         </View>
         <TouchableOpacity>
