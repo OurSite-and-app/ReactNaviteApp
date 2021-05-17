@@ -16,7 +16,7 @@ const RegistrationScreen = ({ navigation }) => {
       email: email
     }
 
-    console.log(data)
+    //console.log(data)
 
     fetch("http://84.252.142.119:5000/user", {
       method: "POST",

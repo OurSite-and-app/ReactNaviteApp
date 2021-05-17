@@ -13,6 +13,7 @@ const ElemEditScreen = ({ route, navigation }) => {
 
   const pressSave = () => {
 
+    // create json object for pushing on the server
     var data = {
       theme: theme,
       date_time: date,
@@ -20,12 +21,10 @@ const ElemEditScreen = ({ route, navigation }) => {
       comments: rules
     }
 
-    console.log(data)
-
-    console.log(`id: ${route.params.id}`)
-
+    // save token
     var token = route.params.token;
 
+    // PUT json object to the server
     fetch(`http://84.252.142.119:5000/ch_party/${route.params.id}`, {
       method: "PUT",
         headers: {
@@ -34,7 +33,8 @@ const ElemEditScreen = ({ route, navigation }) => {
       },
       body: JSON.stringify(data)
     })
-  
+
+    // change screen (goBack())
     navigation.navigate('ListScreen')
   }
 
@@ -65,7 +65,7 @@ const ElemEditScreen = ({ route, navigation }) => {
           style = {styles.inputText}
           placeholder = "DressCode..." 
           placeholderTextColor = "#003f5c"
-          onChangeText = {(dresscode) => setDate(dresscode)}
+          onChangeText = {(dresscode) => setDresscode(dresscode)}
           value = {dresscode}
           />
       </View>
@@ -135,21 +135,3 @@ const styles = StyleSheet.create({
 
 export default ElemEditScreen
 
-/*
-const ElemEditScreen = ({ route, navigation }) => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      
-     <Text>{route.params.text}</Text>
-
-      <Button
-        title="Go to Blog"
-        onPress={() => navigation.navigate('ListScreen')}
-      />
-    </View>
-  ); 
-}
-
-export default ElemEditScreen
-
-*/

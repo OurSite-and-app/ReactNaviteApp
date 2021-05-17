@@ -11,8 +11,10 @@ const AddPartyScreen = ({ route, navigation }) => {
   const [date, setDate] = useState('')
   const [rules, setRules] = useState('')
   
+  // button function
   const pressSave = () => {
 
+    // json object for sending on the server
     var data = {
       title: title,
       theme: theme,
@@ -21,10 +23,10 @@ const AddPartyScreen = ({ route, navigation }) => {
       comments: rules
     }
 
-    console.log(data)
-
+    // save token
     var token = route.params.token;
 
+    // sending json object to the server
     fetch("http://84.252.142.119:5000/add_new_party", {
       method: "POST",
         headers: {
@@ -33,7 +35,8 @@ const AddPartyScreen = ({ route, navigation }) => {
       },
       body: JSON.stringify(data)
     })
-  
+
+    // go to the last page
     navigation.navigate('ListScreen')
   }
 
@@ -46,7 +49,6 @@ const AddPartyScreen = ({ route, navigation }) => {
           placeholder = "Title..." 
           placeholderTextColor = "#003f5c"
           onChangeText = {(title) => setTitle(title)}
-          //value = {title}
           />
       </View>
       <View style = {styles.inputView} >
@@ -55,7 +57,6 @@ const AddPartyScreen = ({ route, navigation }) => {
           placeholder = "Theme..." 
           placeholderTextColor = "#003f5c"
           onChangeText = {(theme) => setTheme(theme)}
-          //value = {theme}
           />
       </View>
       <View style = {styles.inputView} >
@@ -64,7 +65,6 @@ const AddPartyScreen = ({ route, navigation }) => {
           placeholder = "Date..." 
           placeholderTextColor = "#003f5c"
           onChangeText = {(date) => setDate(date)}
-          //value = {date}
           />
       </View>
       <View style = {styles.inputView} >
@@ -73,7 +73,6 @@ const AddPartyScreen = ({ route, navigation }) => {
           placeholder = "DressCode..." 
           placeholderTextColor = "#003f5c"
           onChangeText = {(dresscode) => setRules(dresscode)}
-          //value = {dresscode}
           />
       </View>
       <View style = {styles.inputView} >
@@ -82,7 +81,6 @@ const AddPartyScreen = ({ route, navigation }) => {
           placeholder = "Rules..." 
           placeholderTextColor = "#003f5c"
           onChangeText = {(rules) => setRules(rules)}
-          //value = {rules}
           />
       </View>
       <TouchableOpacity>

@@ -4,18 +4,20 @@ import  {useState} from 'react';
 
 const LoginScreen = ({ navigation }) => {
 
+  // global vars' and funcs' (username - var, setUsername - func)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  // Login Button Func
   const pressLogin = () => {
-
+    
+    // create JSON object
     var data = {
       name: username,
       password: password
     }
 
-    console.log(data)
-
+    // POST date
     fetch("http://84.252.142.119:5000/login", {
       method: "POST",
         headers: {

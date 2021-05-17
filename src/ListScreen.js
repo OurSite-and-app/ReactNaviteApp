@@ -16,38 +16,42 @@ const ListScreen = ({ route, navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
+  // this function is called first
   useEffect(() => {
     
+    // interval of list update
     const interval = setInterval(() => {
-
+      
+      // save token
       var token = JSON.parse(route.params.token).token;
 
+      // get the list from the server
       fetch("http://84.252.142.119:5000/party_by_user", {
         method: 'GET',
         headers: {
                     'x-access-token': token
                  }
       })
-      .then((response) => response.json())
-      .then((json) => {
+      .then((response) => response.json()) // after gettin date save it to json
+      .then((json) => {                    // work with json object ({[JSON]}) to create list
         //console.log(json)
-        setData(json.party_list)
+        setData(json.party_list)           // global `data` set to `JSON` object from {[JSON]}
       })
-      .catch((error) => {
-        alert(error)
-        console.log(error)
+      .catch((error) => {                 // if error
+        alert(error)                      // alert to device screen (notification)
+        console.log(error)                // print to console
       })
-      .finally(setLoading(false));
-    }, 1000)
+      .finally(setLoading(false));        // turn off loading animation and print list
+    }, 100) // 100 ms cicle
 
     // Subscribe for the focus Listener
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener('focus', () => { // clean list for next iteration of cicle (every 100 ms)
       setData([])
     })
 
     return () => {
-      clearTimeout(interval)
-      unsubscribe 
+      clearTimeout(interval) // call func 'clearTimeout'
+      unsubscribe            // call func 'unsubscribe()'
     }
     
   });
@@ -57,7 +61,6 @@ const ListScreen = ({ route, navigation }) => {
       {isLoading ? (
         <ActivityIndicator />
         ) : (
-        
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
