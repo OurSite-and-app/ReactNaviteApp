@@ -1,60 +1,54 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, Component } from 'react'
 import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 const ElemEditScreen = ({ route, navigation }) => {
 
-/*
-  const [title, setTitle] = useState('')
-  const [theme, setTheme] = useState('')
-  const [dresscode, setDresscode] = useState('')
-  const [date, setDate] = useState('')
-  const [rules, setRules] = useState('')
-  
-  const loginHandle = (value) => {
-    console.log("val is ", value);
-    //setText(value)
-  }
+  const [title, setTitle] = useState(route.params.title)
+  const [theme, setTheme] = useState(route.params.theme)
+  const [dresscode, setDresscode] = useState(route.params.dresscode)
+  const [date, setDate] = useState(route.params.date)
+  const [rules, setRules] = useState(route.params.rules)
 
   const pressSave = () => {
 
-  var data = {
-    "comments": {rules},
-    "date_time": {date},
-    "dress_code": {dresscode},
-    "theme": {theme},
-    "title": {title}
+    var data = {
+      theme: theme,
+      date_time: date,
+      dress_code: dresscode,
+      comments: rules
+    }
+
+    console.log(data)
+
+    console.log(`id: ${route.params.id}`)
+
+    var token = route.params.token;
+
+    fetch(`http://84.252.142.119:5000/ch_party/${route.params.id}`, {
+      method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          'x-access-token': token
+      },
+      body: JSON.stringify(data)
+    })
+  
+    navigation.navigate('ListScreen')
   }
 
-  fetch("https://neon-fiber-309214.ew.r.appspot.com/add_party", {
-    method: "POST",
-    body:  JSON.stringify(data)
-  })
-
-  navigation.navigate('ListScreen')
-  }
-*/
 
   return(
       <View style = {styles.container}>
-      <Text style = {styles.logo}>Edit Party</Text>
-      <View style = {styles.inputView} >
-        <TextInput  
-          style = {styles.inputText}
-          placeholder = "Title..." 
-          placeholderTextColor = "#003f5c"
-          //onChangeText = {(title) => setTitle(title)}
-          value = {route.params.title}
-          />
-      </View>
+      <Text style = {styles.logo}>{route.params.title}</Text>
       <View style = {styles.inputView} >
         <TextInput
           style = {styles.inputText}
           placeholder = "Theme..." 
           placeholderTextColor = "#003f5c"
-          //onChangeText = {(theme) => setTheme(theme)}
-          value = {route.params.theme}
+          onChangeText = {(theme) => setTheme(theme)}
+          value = {theme}
           />
       </View>
       <View style = {styles.inputView} >
@@ -62,8 +56,8 @@ const ElemEditScreen = ({ route, navigation }) => {
           style = {styles.inputText}
           placeholder = "Date..." 
           placeholderTextColor = "#003f5c"
-          //onChangeText = {(date) => setDate(date)}
-          value = {route.params.date}
+          onChangeText = {(date) => setDate(date)}
+          value = {date}
           />
       </View>
       <View style = {styles.inputView} >
@@ -71,8 +65,8 @@ const ElemEditScreen = ({ route, navigation }) => {
           style = {styles.inputText}
           placeholder = "DressCode..." 
           placeholderTextColor = "#003f5c"
-          //onChangeText = {(dresscode) => setDate(dresscode)}
-          value = {route.params.dresscode}
+          onChangeText = {(dresscode) => setDate(dresscode)}
+          value = {dresscode}
           />
       </View>
       <View style = {styles.inputView} >
@@ -80,14 +74,14 @@ const ElemEditScreen = ({ route, navigation }) => {
           style = {styles.inputText}
           placeholder = "Rules..." 
           placeholderTextColor = "#003f5c"
-          //onChangeText = {(rules) => setRules(rules)}
-          value = {route.params.rules}
+          onChangeText = {(rules) => setRules(rules)}
+          value = {rules}
           />
       </View>
       <TouchableOpacity>
         <Text style={styles.forgot}></Text>
       </TouchableOpacity>
-      <TouchableOpacity style = {styles.saveBtn} /*onPress = { pressSave }*/>
+      <TouchableOpacity style = {styles.saveBtn} onPress = { pressSave }>
         <Text style={styles.saveText}>SAVE</Text>
       </TouchableOpacity>
     </View>

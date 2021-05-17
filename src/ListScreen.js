@@ -6,15 +6,12 @@ import { Icon } from 'react-native-elements'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ListItem } from 'react-native-elements';
-//import { ListElem } from './ListElem'
 
 const ListScreen = ({ route, navigation }) => {
 
   const addParty = () => {
     navigation.navigate('AddPartyScreen', {token: JSON.parse(route.params.token).token})
   }
-
-  //const url = 'http://84.252.142.119:5000/parties';
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -41,9 +38,7 @@ const ListScreen = ({ route, navigation }) => {
         console.log(error)
       })
       .finally(setLoading(false));
-
-
-    }, 100)
+    }, 1000)
 
     // Subscribe for the focus Listener
     const unsubscribe = navigation.addListener('focus', () => {
@@ -52,8 +47,7 @@ const ListScreen = ({ route, navigation }) => {
 
     return () => {
       clearTimeout(interval)
-      unsubscribe
-      
+      unsubscribe 
     }
     
   });
@@ -76,7 +70,7 @@ const ListScreen = ({ route, navigation }) => {
                           {token: JSON.parse(route.params.token).token, 
                            title: item.title, theme: item.theme, 
                            rules: item.comments, date: item.date_time, 
-                           dresscode: item.dress_code})
+                           dresscode: item.dress_code, id: item.id})
                         }
               >
                 <View style={stylesList.view}>

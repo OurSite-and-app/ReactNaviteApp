@@ -7,11 +7,6 @@ const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const loginHandle = (value) => {
-    console.log('val is ', value);
-    //setText(value)
-  }
-
   const pressLogin = () => {
 
     var data = {

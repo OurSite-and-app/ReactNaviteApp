@@ -11,11 +11,6 @@ const AddPartyScreen = ({ route, navigation }) => {
   const [date, setDate] = useState('')
   const [rules, setRules] = useState('')
   
-  const loginHandle = (value) => {
-    console.log("val is ", value);
-    //setText(value)
-  }
-
   const pressSave = () => {
 
     var data = {
@@ -41,27 +36,6 @@ const AddPartyScreen = ({ route, navigation }) => {
   
     navigation.navigate('ListScreen')
   }
-
-/*
-  const func12 = () => {
-    fetch("http:/example.com", {method: "POST",
-  body: JSON.stringify(
-    {
-      uname: uname,
-      password: password      
-    }
-  )
-})
-.then((response) => response.text())
-.then((responseData) => {
-  AlertIOS.alert(
-      "POST Response",
-      "Response Body -> " + responseData
-  )
-}).done();
-       this.props.navigation.navigate("Home")
-   };
-*/
 
   return(
       <View style = {styles.container}>
