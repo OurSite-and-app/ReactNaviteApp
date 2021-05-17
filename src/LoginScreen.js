@@ -4,15 +4,53 @@ import  {useState} from 'react';
 
 const LoginScreen = ({ navigation }) => {
 
-  const [text, setText] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
   const loginHandle = (value) => {
-    console.log("val is ", value);
-    setText(value)
+    console.log('val is ', value);
+    //setText(value)
   }
 
   const pressLogin = () => {
-    setText("");
-    navigation.navigate('ListScreen')
+
+    var data = {
+      name: username,
+      password: password
+    }
+
+    console.log(data)
+
+    fetch("http://84.252.142.119:5000/login", {
+      method: "POST",
+        headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => response.text()) // получаем ответ от сервера
+    .then((responseText) => { // responseText - ответ от сервера
+      console.log(responseText) // responseText - либо ошибка, либо токен
+
+      setUsername('')
+      setPassword('')
+
+      if(responseText == 'No username or password provided')
+      {
+        alert(responseText)
+      }
+      else
+      {
+        navigation.navigate('ListScreen', {token: responseText})
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+    setUsername('');
+    setPassword('')
   }
 
   const pressSingUp = () => {
@@ -25,10 +63,9 @@ const LoginScreen = ({ navigation }) => {
         <View style = {styles.inputView} >
           <TextInput  
             style = {styles.inputText}
-            placeholder = "Email..." 
+            placeholder = "Username..." 
             placeholderTextColor = "#003f5c"
-            onChangeText = {loginHandle}
-            value = {text}
+            onChangeText = {(username) => setUsername(username)}
             />
         </View>
         <View style = {styles.inputView} >
@@ -37,6 +74,7 @@ const LoginScreen = ({ navigation }) => {
             style = {styles.inputText}
             placeholder = "Password..." 
             placeholderTextColor = "#003f5c"
+            onChangeText = {(password) => setPassword(password)}
             />
         </View>
         <TouchableOpacity>

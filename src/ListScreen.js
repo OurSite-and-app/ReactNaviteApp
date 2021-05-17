@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ListItem } from 'react-native-elements';
 //import { ListElem } from './ListElem'
 
-const ListScreen = ({ navigation }) => {
+const ListScreen = ({ route, navigation }) => {
 
   const addParty = () => {
     navigation.navigate('AddPartyScreen')
@@ -22,12 +22,58 @@ const ListScreen = ({ navigation }) => {
   useEffect(() => {
     
     const interval = setInterval(() => {
-      fetch(url)
+
+/*
+      console.log(route.params.token)
+
+      fetch("http://84.252.142.119:5000/party_by_user", {
+        method: "POST",
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: route.params.token
+      })
+      .then((response) => response.text()) // получаем ответ от сервера
+      .then((responseText) => { // responseText - ответ от сервера
+        console.log(responseText) // responseText - либо ошибка, либо токен
+
+        alert(responseText)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+*/
+
+      var token = JSON.parse(route.params.token).token;
+      console.log(token)
+
+      console.log('------------------------------')
+      var header = {
+        'x-access-token': token
+      }
+
+      console.log(header)
+
+
+      fetch("http://84.252.142.119:5000/party_by_user", {
+        method: 'GET',
+        headers: {
+                    'x-access-token': token
+                 }
+      })
       .then((response) => response.json())
-      .then((json) => setData(json.parties))
-      .catch((error) => alert(error))
+      .then((json) => {
+        console.log(json)
+        setData(json.party_list)
+      })
+      .catch((error) => {
+        alert(error)
+      })
       .finally(setLoading(false));
-    }, 0)
+
+
+    }, 5000)
 
     // Subscribe for the focus Listener
     const unsubscribe = navigation.addListener('focus', () => {
@@ -40,7 +86,7 @@ const ListScreen = ({ navigation }) => {
       
     }
     
-  }, [navigation]);
+  });
 
   return (
     <SafeAreaView style={styles.container}>
