@@ -11,10 +11,10 @@ import { ListItem } from 'react-native-elements';
 const ListScreen = ({ route, navigation }) => {
 
   const addParty = () => {
-    navigation.navigate('AddPartyScreen')
+    navigation.navigate('AddPartyScreen', {token: JSON.parse(route.params.token).token})
   }
 
-  const url = 'http://84.252.142.119:5000/parties';
+  //const url = 'http://84.252.142.119:5000/parties';
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -23,38 +23,7 @@ const ListScreen = ({ route, navigation }) => {
     
     const interval = setInterval(() => {
 
-/*
-      console.log(route.params.token)
-
-      fetch("http://84.252.142.119:5000/party_by_user", {
-        method: "POST",
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: route.params.token
-      })
-      .then((response) => response.text()) // получаем ответ от сервера
-      .then((responseText) => { // responseText - ответ от сервера
-        console.log(responseText) // responseText - либо ошибка, либо токен
-
-        alert(responseText)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-*/
-
       var token = JSON.parse(route.params.token).token;
-      console.log(token)
-
-      console.log('------------------------------')
-      var header = {
-        'x-access-token': token
-      }
-
-      console.log(header)
-
 
       fetch("http://84.252.142.119:5000/party_by_user", {
         method: 'GET',
@@ -64,16 +33,17 @@ const ListScreen = ({ route, navigation }) => {
       })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json)
+        //console.log(json)
         setData(json.party_list)
       })
       .catch((error) => {
         alert(error)
+        console.log(error)
       })
       .finally(setLoading(false));
 
 
-    }, 5000)
+    }, 100)
 
     // Subscribe for the focus Listener
     const unsubscribe = navigation.addListener('focus', () => {
@@ -103,7 +73,10 @@ const ListScreen = ({ route, navigation }) => {
               <TouchableOpacity
                 style={stylesList.elem}
                 onPress={() => navigation.navigate("ElemEditScreen", 
-                          {title: item.title, theme: item.theme, rules: item.comments, date: item.date_time, dresscode: item.dress_code})
+                          {token: JSON.parse(route.params.token).token, 
+                           title: item.title, theme: item.theme, 
+                           rules: item.comments, date: item.date_time, 
+                           dresscode: item.dress_code})
                         }
               >
                 <View style={stylesList.view}>

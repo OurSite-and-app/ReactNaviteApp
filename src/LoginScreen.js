@@ -33,8 +33,8 @@ const LoginScreen = ({ navigation }) => {
     .then((responseText) => { // responseText - ответ от сервера
       console.log(responseText) // responseText - либо ошибка, либо токен
 
-      setUsername('')
-      setPassword('')
+      //setUsername("")
+      //setPassword('')
 
       if(responseText == 'No username or password provided')
       {
@@ -48,9 +48,6 @@ const LoginScreen = ({ navigation }) => {
     .catch((error) => {
       console.error(error);
     });
-
-    setUsername('');
-    setPassword('')
   }
 
   const pressSingUp = () => {

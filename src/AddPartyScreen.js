@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import  {useState} from 'react';
 import axios from 'axios'
 
-const AddPartyScreen = ({ navigation }) => {
+const AddPartyScreen = ({ route, navigation }) => {
 
   const [title, setTitle] = useState('')
   const [theme, setTheme] = useState('')
@@ -28,11 +28,13 @@ const AddPartyScreen = ({ navigation }) => {
 
     console.log(data)
 
-    fetch("http://84.252.142.119:5000/add_party", {
+    var token = route.params.token;
+
+    fetch("http://84.252.142.119:5000/add_new_party", {
       method: "POST",
         headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+          "Content-Type": "application/json",
+          'x-access-token': token
       },
       body: JSON.stringify(data)
     })
